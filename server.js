@@ -23,7 +23,8 @@ app.use(helmet({
 
 // CORS
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://uge-front-6pgy.vercel.app',
+  /* origin: process.env.FRONTEND_URL || 'https://uge-front-6pgy.vercel.app', */
+  origin: process.env.FRONTEND_URL || 'http://localhost/5173',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
