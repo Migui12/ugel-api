@@ -59,9 +59,32 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 const startServer = async () => {
-    app.listen(PORT, () => {
-      console.log("El servidor funciona el puerto", PORT);
-    });
-};
+  try {
+    // Verificar conexión a la base de datos
+    await sequelize.authenticate();
+    console.log('✅ Conexión a MySQL establecida correctamente');
 
+    // Sincronizar modelos (NO en producción, usar migraciones)
+    if (process.env.NODE_ENV === 'development') {
+      // alter: true actualiza tablas existentes sin borrar datos
+      await sequelize.sync({ alter: false });
+      console.log('✅ Modelos sincronizados con la base de datos');
+    }
+
+    app.listen(PORT, () => {
+      console.log(`
+╔══════════════════════════════════════════════╗
+║         SISTEMA UGEL - API REST              ║
+╠══════════════════════════════════════════════╣
+║  Servidor: http://localhost:${PORT}           ║
+║  Ambiente: ${process.env.NODE_ENV || 'development'}                ║
+║  Base de datos: ${process.env.DB_NAME}         ║
+╚══════════════════════════════════════════════╝
+      `);
+    });
+  } catch (error) {
+    console.error('❌ Error al iniciar el servidor:', error.message);
+    process.exit(1);
+  }
+};
 startServer();
