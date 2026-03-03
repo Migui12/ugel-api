@@ -1,4 +1,3 @@
-// controllers/authController.js
 // Controlador de autenticación
 
 const bcrypt = require('bcryptjs');

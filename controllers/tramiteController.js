@@ -1,6 +1,7 @@
-// controllers/tramiteController.js
 const { Tramite, Usuario } = require('../models');
 const { Op } = require('sequelize');
+const Configuracion = require('../models/Configuracion');
+const { horarioHabil } = require('../utils/horario');
 
 // Generar número de expediente único: UGEL-AÑO-NNNNNN
 const generarNumeroExpediente = async () => {
@@ -66,6 +67,14 @@ const registrar = async (req, res, next) => {
       datos.archivoUrl = `/uploads/tramites/${req.file.filename}`;
       datos.archivoNombre = req.file.originalname;
       datos.archivoTamanio = req.file.size;
+    }
+
+    const config = await Configuracion.findByPk(1);
+
+    if (!horarioHabil(config)) {
+      return res.status(403).json({
+        message: `La Mesa de Partes Virtual atiende de ${config.atencion}.`
+      });
     }
 
     const tramite = await Tramite.create(datos);

@@ -1,4 +1,3 @@
-// controllers/convocatoriaController.js
 const { Op } = require('sequelize');
 const { Convocatoria, Usuario } = require('../models');
 const fs = require('fs');

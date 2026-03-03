@@ -1,4 +1,3 @@
-// controllers/comunicadoController.js
 const { Op } = require('sequelize');
 const { Comunicado, Usuario } = require('../models');
 const fs = require('fs');

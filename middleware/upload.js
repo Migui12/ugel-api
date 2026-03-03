@@ -1,4 +1,3 @@
-// middleware/upload.js
 // Configuración de multer para subida de archivos
 
 const multer = require('multer');
@@ -13,7 +12,9 @@ const ALLOWED_TYPES = {
   'application/vnd.ms-excel': '.xls',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': '.xlsx',
   'image/jpeg': '.jpg',
-  'image/png': '.png'
+  'image/png': '.png',
+  'image/webp': '.webp',
+  'image/gif': '.gif'
 };
 
 // Crear directorios si no existen

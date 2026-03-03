@@ -1,4 +1,3 @@
-// models/index.js
 // Punto de entrada para todos los modelos Sequelize
 
 const sequelize = require('../config/database');
@@ -8,6 +7,8 @@ const Comunicado = require('./Comunicado');
 const Convocatoria = require('./Convocatoria');
 const Tramite = require('./Tramite');
 const Documento = require('./Documento');
+const Noticia = require('./Noticia');
+const Configuracion = require('./Configuracion');
 
 // ============================================================
 // ASOCIACIONES
@@ -33,6 +34,10 @@ Tramite.belongsTo(Usuario, { foreignKey: 'operadorId', as: 'operador' });
 Usuario.hasMany(Documento, { foreignKey: 'autorId', as: 'documentos' });
 Documento.belongsTo(Usuario, { foreignKey: 'autorId', as: 'autor' });
 
+// Un Usuario crea muchas Noticias
+Usuario.hasMany(Noticia, { foreignKey: 'autorId', as: 'noticias' });
+Noticia.belongsTo(Usuario, { foreignKey: 'autorId', as: 'autor' });
+
 module.exports = {
   sequelize,
   Rol,
@@ -40,5 +45,7 @@ module.exports = {
   Comunicado,
   Convocatoria,
   Tramite,
-  Documento
+  Documento,
+  Noticia,
+  Configuracion,
 };

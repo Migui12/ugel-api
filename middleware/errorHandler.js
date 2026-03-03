@@ -1,4 +1,3 @@
-// middleware/errorHandler.js
 // Manejo centralizado de errores
 
 const { ValidationError, UniqueConstraintError } = require('sequelize');

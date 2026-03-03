@@ -1,10 +1,9 @@
-// routes/adminRoutes.js
-// Todas las rutas aquí requieren autenticación
-
 const express = require('express');
 const router = express.Router();
 const { authenticate, authorize } = require('../middleware/auth');
 const { uploadDocument, handleMulterError } = require('../middleware/upload');
+const { uploadNoticia } = require('../middleware/uploadNoticias');
+const { uploadConfiguracion } = require('../middleware/uploadConfiguracion');
 const multer = require('multer');
 
 const comunicadoCtrl = require('../controllers/comunicadoController');
@@ -12,6 +11,8 @@ const convocatoriaCtrl = require('../controllers/convocatoriaController');
 const tramiteCtrl = require('../controllers/tramiteController');
 const documentoCtrl = require('../controllers/documentoController');
 const usuarioCtrl = require('../controllers/usuarioController');
+const noticiaCtrl = require('../controllers/noticiaController');
+const configuracionCtrol = require('../controllers/configuracionController')
 
 // Aplicar autenticación a todas las rutas admin
 router.use(authenticate);
@@ -60,5 +61,18 @@ router.get('/usuarios', authorize('ADMIN'), usuarioCtrl.listar);
 router.post('/usuarios', authorize('ADMIN'), usuarioCtrl.crear);
 router.put('/usuarios/:id', authorize('ADMIN'), usuarioCtrl.actualizar);
 router.delete('/usuarios/:id', authorize('ADMIN'), usuarioCtrl.eliminar);
+
+// ============================================================
+// NOTICIAS ADMIN
+// ============================================================
+router.get('/noticias', noticiaCtrl.listarAdmin);
+router.post('/noticias', uploadNoticia.single('imagen'), handleMulterError, noticiaCtrl.crear);
+router.put('/noticias/:id', uploadNoticia.single('imagen'), handleMulterError, noticiaCtrl.actualizar);
+router.delete('/noticias/:id', authorize('ADMIN'), noticiaCtrl.eliminar);
+
+// ============================================================
+// CONFIGURACION ADMIN
+// ============================================================
+router.put('/configuracion/:id', uploadConfiguracion.single('imagen'), handleMulterError, configuracionCtrol.actualizar);
 
 module.exports = router;

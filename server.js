@@ -1,6 +1,3 @@
-// server.js
-// Servidor principal de la API UGEL
-
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -39,9 +36,6 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // ============================================================
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// ============================================================
-// RUTAS DE LA API
-// ============================================================
 app.use('/api', routes);
 
 // Ruta de salud del servidor
@@ -54,9 +48,6 @@ app.get('/health', (req, res) => {
   });
 });
 
-// ============================================================
-// MANEJO DE RUTAS NO ENCONTRADAS
-// ============================================================
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -64,42 +55,12 @@ app.use((req, res) => {
   });
 });
 
-// ============================================================
-// MIDDLEWARE GLOBAL DE ERRORES
-// ============================================================
 app.use(errorHandler);
 
-// ============================================================
-// INICIAR SERVIDOR
-// ============================================================
 const startServer = async () => {
-  try {
-    // Verificar conexión a la base de datos
-    await sequelize.authenticate();
-    console.log('✅ Conexión a MySQL establecida correctamente');
-
-    // Sincronizar modelos (NO en producción, usar migraciones)
-    if (process.env.NODE_ENV === 'development') {
-      // alter: true actualiza tablas existentes sin borrar datos
-      await sequelize.sync({ alter: false });
-      console.log('✅ Modelos sincronizados con la base de datos');
-    }
-
     app.listen(PORT, () => {
-      console.log(`
-╔══════════════════════════════════════════════╗
-║         SISTEMA UGEL - API REST              ║
-╠══════════════════════════════════════════════╣
-║  Servidor: http://localhost:${PORT}           ║
-║  Ambiente: ${process.env.NODE_ENV || 'development'}                ║
-║  Base de datos: ${process.env.MYSQLDATABASE || process.env.DB_NAME}        ║
-╚══════════════════════════════════════════════╝
-      `);
+      console.log("El servidor funciona el puerto", PORT);
     });
-  } catch (error) {
-    console.error('❌ Error al iniciar el servidor:', error.message);
-    process.exit(1);
-  }
 };
 
 startServer();

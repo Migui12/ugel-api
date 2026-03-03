@@ -1,13 +1,6 @@
-// middleware/auth.js
-// Middleware de autenticación y autorización con JWT
-
 const jwt = require('jsonwebtoken');
 const { Usuario, Rol } = require('../models');
 
-/**
- * Verifica el token JWT en el header Authorization
- * Adjunta el usuario autenticado a req.user
- */
 const authenticate = async (req, res, next) => {
   try {
     // Obtener el token del header
