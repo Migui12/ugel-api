@@ -83,7 +83,7 @@ const startServer = async () => {
       `);
     });
   } catch (error) {
-    console.error('❌ Error al iniciar el servidor:', error.message);
+    console.error('❌ ERROR COMPLETO:', error);
     process.exit(1);
   }
 };
