@@ -59,9 +59,19 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 const startServer = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Base de datos conectada correctamente");
+
+    await sequelize.sync();
+    
     app.listen(PORT, () => {
       console.log("El servidor funciona el puerto", PORT);
     });
+  } catch (error) {
+    console.error("Error conectando a la base de datos:");
+    console.error(error);
+  }
 };
 
 startServer();
