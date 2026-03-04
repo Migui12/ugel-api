@@ -90,7 +90,7 @@ const crear = async (req, res, next) => {
       titulo: req.body.titulo,
       descripcion: req.body.descripcion,
       categoria: req.body.categoria || 'OTRO',
-      archivoUrl: `${´precess.env.BASE_URL}/uploads/documents/${req.file.filename}`,
+      archivoUrl: `${process.env.BASE_URL}/uploads/documents/${req.file.filename}`,
       archivoNombre: req.file.originalname,
       archivoTamanio: req.file.size,
       autorId: req.user.id
@@ -121,7 +121,7 @@ const actualizar = async (req, res, next) => {
       // Eliminar archivo anterior
       const oldPath = path.join(__dirname, '..', documento.archivoUrl);
       if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
-      datos.archivoUrl = `${precess.env.BASE_URL}/uploads/documents/${req.file.filename}`;
+      datos.archivoUrl = `${process.env.BASE_URL}/uploads/documents/${req.file.filename}`;
       datos.archivoNombre = req.file.originalname;
       datos.archivoTamanio = req.file.size;
     }
