@@ -32,7 +32,7 @@ const actualizar = async (req, res, next) => {
         const oldPath = path.join(__dirname, '..', configuracion.imagen);
         if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
       }
-      datos.imagen = `/uploads/configuracion/${req.file.filename}`;
+      datos.imagen = `${process.env.BASE_URL}/uploads/configuracion/${req.file.filename}`;
     }
 
     await configuracion.update(datos);
