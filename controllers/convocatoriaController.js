@@ -87,7 +87,7 @@ const crear = async (req, res, next) => {
     // Manejar archivos (multer envía múltiples con fields)
     if (req.files) {
       if (req.files.archivo) {
-        datos.archivoUrl = `/uploads/documents/${req.files.archivo[0].filename}`;
+        datos.archivoUrl = `${process.env.BASE_URL}/uploads/documents/${req.files.archivo[0].filename}`;
         datos.archivoNombre = req.files.archivo[0].originalname;
       }
       if (req.files.base) {
@@ -115,11 +115,11 @@ const actualizar = async (req, res, next) => {
 
     if (req.files) {
       if (req.files.archivo) {
-        datos.archivoUrl = `/uploads/documents/${req.files.archivo[0].filename}`;
+        datos.archivoUrl = `${process.env.BASE_URL}/uploads/documents/${req.files.archivo[0].filename}`;
         datos.archivoNombre = req.files.archivo[0].originalname;
       }
       if (req.files.base) {
-        datos.baseUrl = `/uploads/documents/${req.files.base[0].filename}`;
+        datos.baseUrl = `${process.env.BASE_URL}/uploads/documents/${req.files.base[0].filename}`;
         datos.baseNombre = req.files.base[0].originalname;
       }
     }
