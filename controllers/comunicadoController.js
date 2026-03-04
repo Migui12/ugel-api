@@ -107,7 +107,7 @@ const crear = async (req, res, next) => {
     }
 
     if (req.file) {
-      datos.archivoUrl = `/uploads/documents/${req.file.filename}`;
+      datos.archivoUrl = `${process.env.BASE_URL}/uploads/documents/${req.file.filename}`;
       datos.archivoNombre = req.file.originalname;
     }
 
@@ -140,7 +140,7 @@ const actualizar = async (req, res, next) => {
         const oldPath = path.join(__dirname, '..', comunicado.archivoUrl);
         if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
       }
-      datos.archivoUrl = `/uploads/documents/${req.file.filename}`;
+      datos.archivoUrl = `${process.env.BASE_URL}/uploads/documents/${req.file.filename}`;
       datos.archivoNombre = req.file.originalname;
     }
 
