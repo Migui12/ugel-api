@@ -93,7 +93,7 @@ const crear = async (req, res, next) => {
     if (estado === 'PUBLICADO') datos.fechaPublicacion = new Date();
 
     if (req.file) {
-      datos.imagenUrl = `${process.env.BASE_URL}/uploads/noticias/${req.file.filename}`;
+      datos.imagenUrl = `/uploads/noticias/${req.file.filename}`;
       datos.imagenNombre = req.file.originalname;
     }
 
@@ -120,7 +120,7 @@ const actualizar = async (req, res, next) => {
         const oldPath = path.join(__dirname, '..', noticia.imagenUrl);
         if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
       }
-      datos.imagenUrl = `${process.env.BASE_URL}/uploads/noticias/${req.file.filename}`;
+      datos.imagenUrl = `/uploads/noticias/${req.file.filename}`;
       datos.imagenNombre = req.file.originalname;
     }
 
