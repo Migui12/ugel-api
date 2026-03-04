@@ -64,7 +64,7 @@ const registrar = async (req, res, next) => {
     };
 
     if (req.file) {
-      datos.archivoUrl = `/uploads/tramites/${req.file.filename}`;
+      datos.archivoUrl = `${process.env.BASE_URL}/uploads/tramites/${req.file.filename}`;
       datos.archivoNombre = req.file.originalname;
       datos.archivoTamanio = req.file.size;
     }
